@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     float gravity;
     float viewDirX;
 
+    public static bool isDialog;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -27,7 +29,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Move();
+        if (!isDialog)
+            Move();
     }
 
     float h => Input.GetAxis("Horizontal");
