@@ -28,7 +28,6 @@ public class NPC : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     Player.isDialog = true;
-                    
                     CamMng.vCam.Follow = transform;
                     CamMng.vCam.LookAt = transform;
                     CamMng.vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z = 10.0f;
@@ -43,9 +42,7 @@ public class NPC : MonoBehaviour
                 if(Input.GetKeyDown(KeyCode.Space))
                 {
                     if(dialogIdx < npcDialog.Length - 1)
-                    {
                         DialogSetting(++dialogIdx);
-                    }
                     else
                     {
                         dialog.SetActive(false);
