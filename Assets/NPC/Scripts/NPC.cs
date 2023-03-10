@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 using Cinemachine;
 
 public class NPC : MonoBehaviour
@@ -12,48 +11,68 @@ public class NPC : MonoBehaviour
     public GameObject dialog;
     public TextMeshProUGUI npcNameText;
     public TextMeshProUGUI dialogText;
-    [SerializeField] int dialogIdx;
+    int dialogIdx;
+    bool isRange = false;
+
+    void Update()
+    {
+        if (isRange)
+            Dialog();
+    }
 
     void DialogSetting(int idx)
     {
         dialogText.text = npcDialog[idx];
     }
 
-    private void OnTriggerStay(Collider col)
+    void Dialog()
+    {
+        if (!Player.isDialog)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Player.isDialog = true;
+                CamMng.vCam.Follow = transform;
+                CamMng.vCam.LookAt = transform;
+                CamMng.vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z = 10.0f;
+                npcNameText.text = npcName;
+                dialogIdx = 0;
+                dialog.SetActive(true);
+                DialogSetting(dialogIdx);
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+            {
+                if (dialogIdx < npcDialog.Length - 1)
+                    DialogSetting(++dialogIdx);
+                else
+                {
+                    dialog.SetActive(false);
+                    Player.isDialog = false;
+                    Transform playerTr = GameObject.Find("Player").transform;
+                    CamMng.vCam.Follow = playerTr;
+                    CamMng.vCam.LookAt = playerTr;
+                    CamMng.vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z = -10.0f;
+                }
+            }
+        }
+    }
+
+    void OnTriggerEnter(Collider col)
     {
         if (col.CompareTag("Player"))
         {
-            if (!Player.isDialog)
-            {
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    Player.isDialog = true;
-                    CamMng.vCam.Follow = transform;
-                    CamMng.vCam.LookAt = transform;
-                    CamMng.vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z = 10.0f;
-                    npcNameText.text = npcName;
-                    dialogIdx = 0;
-                    dialog.SetActive(true);
-                    DialogSetting(dialogIdx);
-                }
-            }
-            else
-            {
-                if(Input.GetKeyDown(KeyCode.Space))
-                {
-                    if(dialogIdx < npcDialog.Length - 1)
-                        DialogSetting(++dialogIdx);
-                    else
-                    {
-                        dialog.SetActive(false);
-                        Player.isDialog = false;
-                        Transform playerTr = GameObject.Find("Player").transform;
-                        CamMng.vCam.Follow = playerTr;
-                        CamMng.vCam.LookAt = playerTr;
-                        CamMng.vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z = -10.0f;
-                    }
-                }
-            }
+            isRange = true;
+        }
+    }
+
+    void OnTriggerExit(Collider col)
+    {
+        if (col.CompareTag("Player"))
+        {
+            isRange = false;
         }
     }
 }

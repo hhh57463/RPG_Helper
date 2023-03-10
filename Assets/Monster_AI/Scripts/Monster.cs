@@ -92,7 +92,6 @@ public class Monster : MonoBehaviour
     {
         if (Vector3.Distance(player.transform.position, transform.position) <= chaseRadius)
         {
-            Debug.Log("Chase");
             StopCoroutine("Thinking");
             isChasing = true;
             patern = 3;
@@ -101,7 +100,6 @@ public class Monster : MonoBehaviour
         {
             if (Vector3.Distance(spawnPoint, transform.localPosition) >= spawnRadius)
             {
-                Debug.Log("Revert");
                 isChasing = false;
                 patern = 0;
             }
@@ -130,7 +128,7 @@ public class Monster : MonoBehaviour
 
     void SelectPatern()
     {
-        patern = Random.Range(2, 3);
+        patern = Random.Range(1, 3);
         if (patern == 2)
             MovePos();
     }
