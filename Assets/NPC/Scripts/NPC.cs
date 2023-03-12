@@ -51,7 +51,7 @@ public class NPC : MonoBehaviour
                 {
                     dialog.SetActive(false);
                     Player.isDialog = false;
-                    Transform playerTr = GameObject.Find("Player").transform;
+                    Transform playerTr = GameObject.FindGameObjectWithTag("Player").transform;
                     CamMng.vCam.Follow = playerTr;
                     CamMng.vCam.LookAt = playerTr;
                     CamMng.vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z = -10.0f;

@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    [Tooltip("[Player Script]")]
-    [SerializeField] Player player;
     [Tooltip("[Monster Type]\n1: In Range Move Monster\n2: Esacape Range, revert point Monster\n3: In Range Follow Monster")]
     [SerializeField] int monsterType;
     [Tooltip("[Monster Patern]\n0: Comback SpawnPoint\n1: Stand\n2: Move\n3: Follow Player")]
     [SerializeField] int patern;
     [SerializeField] float speed;
     float moveSpeed;
-    Vector3 spawnPoint;
+    Vector3 spawnLocalPos;
+    Vector3 spawnWorldPos;
     Vector3 targetPos;
 
     float spawnRadius;
 
     void Start()
     {
-        spawnPoint = transform.localPosition;
+        spawnLocalPos = transform.localPosition;
+        spawnWorldPos = transform.position;
         speed = 11.0f;
         spawnRadius = 30f;
         StartCoroutine("Thinking");
@@ -42,7 +42,7 @@ public class Monster : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             StopCoroutine("Thinking");
-            transform.localPosition = spawnPoint;
+            transform.localPosition = spawnLocalPos;
             speed = 11.0f;
             StartCoroutine("Thinking");
         }
@@ -50,7 +50,7 @@ public class Monster : MonoBehaviour
 
     void MonsterType1()
     {
-        if (Vector3.Distance(spawnPoint, transform.localPosition) >= spawnRadius)
+        if (Vector3.Distance(spawnLocalPos, transform.localPosition) >= spawnRadius)
         {
             StopCoroutine("Thinking");
             patern = 0;
@@ -62,16 +62,16 @@ public class Monster : MonoBehaviour
         if (transform.localPosition == targetPos)
             MovePos();
     }
-
-    float chaseRadius = 30f;
+    [Header("Chase Range")]
+    [SerializeField] float chaseRadius = 30f;
     void MonsterType2()
     {
-        if (Vector3.Distance(spawnPoint, transform.localPosition) >= spawnRadius)
+        if (Vector3.Distance(spawnLocalPos, transform.localPosition) >= spawnRadius)
         {
             StopCoroutine("Thinking");
             patern = 0;
         }
-        if (Vector3.Distance(spawnPoint, player.transform.position) <= chaseRadius)
+        if (Vector3.Distance(spawnWorldPos, SceneMng.player.transform.position) <= chaseRadius)
         {
             StopCoroutine("Thinking");
             patern = 3;
@@ -90,15 +90,15 @@ public class Monster : MonoBehaviour
     bool isChasing = false;
     void MonsterType3()
     {
-        if (Vector3.Distance(player.transform.position, transform.position) <= chaseRadius)
+        if (Vector3.Distance(SceneMng.player.transform.position, transform.position) <= chaseRadius)
         {
             StopCoroutine("Thinking");
             isChasing = true;
             patern = 3;
         }
-        if (isChasing && Vector3.Distance(player.transform.position, transform.position) >= chaseRadius)
+        if (isChasing && Vector3.Distance(SceneMng.player.transform.position, transform.position) >= chaseRadius)
         {
-            if (Vector3.Distance(spawnPoint, transform.localPosition) >= spawnRadius)
+            if (Vector3.Distance(spawnLocalPos, transform.localPosition) >= spawnRadius)
             {
                 isChasing = false;
                 patern = 0;
@@ -138,9 +138,9 @@ public class Monster : MonoBehaviour
         switch (patern)
         {
             case 0:
-                targetPos = spawnPoint;
+                targetPos = spawnLocalPos;
                 moveSpeed = speed;
-                if (Vector3.Distance(spawnPoint, transform.localPosition) >= 1.0f)
+                if (Vector3.Distance(spawnLocalPos, transform.localPosition) >= 1.0f)
                     StartCoroutine("Thinking");
                 break;
             case 1:
@@ -150,7 +150,7 @@ public class Monster : MonoBehaviour
                 moveSpeed = speed;
                 break;
             case 3:
-                targetPos = player.transform.position;
+                targetPos = SceneMng.player.transform.position;
                 break;
         }
     }
