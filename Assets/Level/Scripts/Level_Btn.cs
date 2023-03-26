@@ -16,26 +16,32 @@ public class Level_Btn : MonoBehaviour
     }
     public void AddExpBtn_1()
     {
-        if (playerSc.exp + 1.0f <= playerSc.maxExp)
+        playerSc.exp += 1.0f;
+        levelMng.LevelTextSetting();
+        if (playerSc.exp + 1.0f > playerSc.maxExp)
         {
-            playerSc.exp += 1.0f;
-            levelMng.LevelTextSetting();
+            playerSc.level++;
+            levelMng.LevelUpEvent(playerSc.level);
         }
     }
     public void AddExpBtn_5()
     {
-        if (playerSc.exp + 5.0f <= playerSc.maxExp)
+        playerSc.exp += 5.0f;
+        levelMng.LevelTextSetting();
+        if (playerSc.exp + 5.0f > playerSc.maxExp)
         {
-            playerSc.exp += 5.0f;
-            levelMng.LevelTextSetting();
+            playerSc.level++;
+            levelMng.LevelUpEvent(playerSc.level);
         }
     }
     public void AddExpBtn_10()
     {
-        if (playerSc.exp + 10.0f <= playerSc.maxExp)
+        playerSc.exp += 10.0f;
+        levelMng.LevelTextSetting();
+        if (playerSc.exp + 10.0f > playerSc.maxExp)
         {
-            playerSc.exp += 10.0f;
-            levelMng.LevelTextSetting();
+            playerSc.level++;
+            levelMng.LevelUpEvent(playerSc.level);
         }
     }
 }
