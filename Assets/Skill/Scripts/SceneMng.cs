@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum JOB
 {
-    WORRIOR,
+    WARRIOR,
     WIZARD,
     THIEF
 }

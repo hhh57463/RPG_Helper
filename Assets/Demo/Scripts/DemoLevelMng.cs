@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class LevelMng : MonoBehaviour
+public class DemoLevelMng : MonoBehaviour
 {
 
     [System.Serializable]
@@ -29,7 +29,7 @@ public class LevelMng : MonoBehaviour
     /// <summary>
     /// Write a suitable player script
     /// </summary>
-    public Level_Player playerSc;
+    public PlayerMng playerSc;
     ////////////////////////////////////////////////////
 
     void Start()

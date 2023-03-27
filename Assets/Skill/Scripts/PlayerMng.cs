@@ -17,6 +17,11 @@ public class PlayerMng : MonoBehaviour
 
     public static bool isDialog;
 
+    [Header("Player Level")]
+    public int level;
+    public float exp;
+    public float maxExp;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -24,6 +29,8 @@ public class PlayerMng : MonoBehaviour
         jumpPower = 5.0f;
         gravity = 10.0f;
         rotSpeed = 2.0f;
+        level = 1;
+        maxExp = 10.0f;
     }
 
     void Update()
