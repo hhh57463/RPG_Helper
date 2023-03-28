@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class Thief : PlayerMng
 {
+    protected override void Start()
+    {
+        base.Start();
+        speed = 15.0f;
+        jumpPower = 7.5f;
+        attackDelay = 0.5f;
+    }
+    public override void basic_attack()
+    {
+        Debug.Log("Thief basic Attack");
+    }
     public override void skill_1()
     {
         Debug.Log("Thief skill 1");

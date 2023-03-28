@@ -9,9 +9,11 @@ public class PlayerMng : MonoBehaviour
     Vector3 moveDir;
 
     [Header("Player State")]
-    [SerializeField] float speed;
-    [SerializeField] float jumpPower;
+    public float speed;
+    public float jumpPower;
     [SerializeField] float rotSpeed;
+    public float attackDelay;
+    public bool attackAccess;
     float gravity;
     float viewDirX;
 
@@ -22,15 +24,14 @@ public class PlayerMng : MonoBehaviour
     public float exp;
     public float maxExp;
 
-    void Start()
+    protected virtual void Start()
     {
         controller = GetComponent<CharacterController>();
-        speed = 10.0f;
-        jumpPower = 5.0f;
         gravity = 10.0f;
         rotSpeed = 2.0f;
         level = 1;
         maxExp = 10.0f;
+        attackAccess = true;
     }
 
     void Update()
@@ -39,6 +40,8 @@ public class PlayerMng : MonoBehaviour
         {
             Move();
             Skill();
+            if (Input.GetMouseButtonDown(0) && attackAccess)
+                basic_attack();
         }
     }
 
@@ -58,10 +61,6 @@ public class PlayerMng : MonoBehaviour
             {
                 moveDir.y = jumpPower;
             }
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-                speed = 20.0f;
-            if (Input.GetKeyUp(KeyCode.LeftShift))
-                speed = 10.0f;
         }
         transform.rotation = Quaternion.Euler(0f, viewDirX, 0f);
         moveDir.y -= gravity * Time.deltaTime;
@@ -82,6 +81,7 @@ public class PlayerMng : MonoBehaviour
             skill_5();
     }
 
+    public virtual void basic_attack() { }
     public virtual void skill_1() { }
     public virtual void skill_2() { }
     public virtual void skill_3() { }

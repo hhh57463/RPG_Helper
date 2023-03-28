@@ -49,10 +49,6 @@ public class Player : MonoBehaviour
             {
                 moveDir.y = jumpPower;
             }
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-                speed = 20.0f;
-            if (Input.GetKeyUp(KeyCode.LeftShift))
-                speed = 10.0f;
         }
         transform.rotation = Quaternion.Euler(0f, viewDirX, 0f);
         moveDir.y -= gravity * Time.deltaTime;

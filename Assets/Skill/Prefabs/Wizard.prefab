@@ -131,9 +131,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a568356e5ecc1b34687b719b7b05ba4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 3932832537754528530}
   speed: 0
   jumpPower: 0
   rotSpeed: 0
+  level: 0
+  exp: 0
+  maxExp: 0
 --- !u!1 &8935661482711912495
 GameObject:
   m_ObjectHideFlags: 0
