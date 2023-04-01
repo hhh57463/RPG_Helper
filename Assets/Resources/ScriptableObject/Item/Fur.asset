@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09e9a775dbeee3640b0e852368510268, type: 3}
-  m_Name: RockPiece
+  m_Name: Fur
   m_EditorClassIdentifier: 
-  itemType: 0
-  itemName: Rock Piece
-  info: A piece that fell from a certain monster. Might come in handy later...
+  itemType: 2
+  itemName: Fur
+  info: Fur obtained from monsters. It's soft, so I think I can make clothes out
+    of it.
   count: 1
-  link: https://www.shutterstock.com/image-vector/blue-magic-crystal-unfaceted-gem-600w-2039176265.jpg
+  link: https://www.shutterstock.com/image-vector/beige-fluffy-vector-isolated-fur-600w-503619544.jpg

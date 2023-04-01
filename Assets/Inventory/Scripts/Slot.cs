@@ -3,21 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using TMPro;
 
 public class Slot : MonoBehaviour
 {
     [SerializeField] RawImage btnImg;
     public ItemData data;
     public TooltipObj tooltipObj;
+    public TextMeshProUGUI countText;
 
     void Awake()
     {
         btnImg = GetComponent<RawImage>();
     }
+
     void OnEnable()
     {
         StartCoroutine(GetTexture(btnImg));
     }
+    
     public void ItemViewer()
     {
         tooltipObj.tooltip.SetActive(true);

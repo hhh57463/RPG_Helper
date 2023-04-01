@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09e9a775dbeee3640b0e852368510268, type: 3}
-  m_Name: HPPotion
+  m_Name: RockPiece
   m_EditorClassIdentifier: 
-  itemType: 0
-  itemName: HPPotion
-  info: Restores 100 HP.
+  itemType: 2
+  itemName: RockPiece
+  info: A piece that fell from a certain monster. Might come in handy later...
   count: 1
-  link: https://www.shutterstock.com/image-illustration/3d-healing-potion-wooden-bottle-600w-2163474721.jpg
+  link: https://www.shutterstock.com/image-vector/blue-magic-crystal-unfaceted-gem-600w-2039176265.jpg

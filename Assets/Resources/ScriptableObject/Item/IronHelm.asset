@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09e9a775dbeee3640b0e852368510268, type: 3}
-  m_Name: Fur
+  m_Name: IronHelm
   m_EditorClassIdentifier: 
   itemType: 0
-  itemName: Fur
-  info: Fur obtained from monsters. It's soft, so I think I can make clothes out
-    of it.
+  itemName: IronHelm
+  info: It is a helm made of steel. looks very solid.
   count: 1
-  link: https://www.shutterstock.com/image-vector/beige-fluffy-vector-isolated-fur-600w-503619544.jpg
+  link: https://as1.ftcdn.net/v2/jpg/05/33/23/96/1000_F_533239681_AWJ0poMAs5sz1eVfyDSE5Tm4y9MNne1c.jpg

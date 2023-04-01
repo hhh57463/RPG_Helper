@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09e9a775dbeee3640b0e852368510268, type: 3}
-  m_Name: EnergyDrink
+  m_Name: IronSword
   m_EditorClassIdentifier: 
   itemType: 0
-  itemName: Energy Drink
-  info: Increases movement speed for 10 seconds.
+  itemName: IronSword
+  info: It is a sword made of steel. looks very sharp.
   count: 1
-  link: https://www.shutterstock.com/image-vector/vector-bright-energy-drink-can-600w-314305016.jpg
+  link: https://as2.ftcdn.net/v2/jpg/02/13/81/07/1000_F_213810742_Urp69A4K6JcMev3TXCGkoH5feN5cHunc.jpg
