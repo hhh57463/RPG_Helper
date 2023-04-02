@@ -257,7 +257,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3307670080122306410}
         m_TargetAssemblyTypeName: Slot, Assembly-CSharp
-        m_MethodName: ItemViewer
+        m_MethodName: ItemClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
