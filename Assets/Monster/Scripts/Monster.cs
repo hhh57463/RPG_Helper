@@ -16,8 +16,17 @@ public class Monster : MonoBehaviour
 
     float spawnRadius;
 
+    /////////////////////////////////////////////////
+    /// <summary>
+    /// These variables are for accessing the player's position.
+    /// </summary>
+    [SerializeField] Transform playerTr;
+    const string playerTag = "Player";
+    /////////////////////////////////////////////////
+
     void Start()
     {
+        playerTr = GameObject.FindWithTag(playerTag).transform;
         spawnLocalPos = transform.localPosition;
         spawnWorldPos = transform.position;
         speed = 11.0f;
@@ -62,6 +71,7 @@ public class Monster : MonoBehaviour
         if (transform.localPosition == targetPos)
             MovePos();
     }
+
     [Header("Chase Range")]
     [SerializeField] float chaseRadius = 30f;
     void MonsterType2()
@@ -71,7 +81,7 @@ public class Monster : MonoBehaviour
             StopCoroutine("Thinking");
             patern = 0;
         }
-        if (Vector3.Distance(spawnWorldPos, SceneMng.player.transform.position) <= chaseRadius)
+        if (Vector3.Distance(spawnWorldPos, playerTr.position) <= chaseRadius)
         {
             StopCoroutine("Thinking");
             patern = 3;
@@ -90,13 +100,13 @@ public class Monster : MonoBehaviour
     bool isChasing = false;
     void MonsterType3()
     {
-        if (Vector3.Distance(SceneMng.player.transform.position, transform.position) <= chaseRadius)
+        if (Vector3.Distance(playerTr.position, transform.position) <= chaseRadius)
         {
             StopCoroutine("Thinking");
             isChasing = true;
             patern = 3;
         }
-        if (isChasing && Vector3.Distance(SceneMng.player.transform.position, transform.position) >= chaseRadius)
+        if (isChasing && Vector3.Distance(playerTr.position, transform.position) >= chaseRadius)
         {
             if (Vector3.Distance(spawnLocalPos, transform.localPosition) >= spawnRadius)
             {
@@ -150,7 +160,7 @@ public class Monster : MonoBehaviour
                 moveSpeed = speed;
                 break;
             case 3:
-                targetPos = SceneMng.player.transform.position;
+                targetPos = playerTr.position;
                 break;
         }
     }
