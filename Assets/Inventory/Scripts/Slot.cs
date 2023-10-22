@@ -33,15 +33,15 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     IEnumerator GetTexture(RawImage img)
     {
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture(data.link);
-        yield return www.SendWebRequest();
-        if (www.result != UnityWebRequest.Result.Success)
+        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(data.link);
+        yield return uwr.SendWebRequest();
+        if (uwr.result != UnityWebRequest.Result.Success)
         {
-            Debug.Log(www.error);
+            Debug.Log(uwr.error);
         }
         else
         {
-            img.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+            img.texture = ((DownloadHandlerTexture)uwr.downloadHandler).texture;
         }
     }
 

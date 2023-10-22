@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -20,6 +21,8 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        if (Manager.I != null)
+            Manager.I.GetPlayerTransform(Manager.I.playerName);
         controller = GetComponent<CharacterController>();
         speed = 10.0f;
         jumpPower = 5.0f;

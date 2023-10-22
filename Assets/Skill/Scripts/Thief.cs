@@ -7,6 +7,11 @@ public class Thief : PlayerMng
     protected override void Start()
     {
         base.Start();
+        if (Manager.I != null)
+        {
+            Manager.I.playerName = "Thief(Clone)";
+            Manager.I.GetPlayerTransform(Manager.I.playerName);
+        }
         speed = 15.0f;
         jumpPower = 7.5f;
         attackDelay = 0.5f;

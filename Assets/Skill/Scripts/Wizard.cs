@@ -7,6 +7,11 @@ public class Wizard : PlayerMng
     protected override void Start()
     {
         base.Start();
+        if (Manager.I != null)
+        {
+            Manager.I.playerName = "Wizard(Clone)";
+            Manager.I.GetPlayerTransform(Manager.I.playerName);
+        }
         speed = 10.0f;
         jumpPower = 5.0f;
         attackDelay = 1.0f;

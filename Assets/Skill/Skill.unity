@@ -104,7 +104,7 @@ NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
-    serializedVersion: 2
+    serializedVersion: 3
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
@@ -117,7 +117,7 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    buildHeightMesh: 0
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
@@ -133,8 +133,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1033221277}
   - component: {fileID: 1033221278}
+  - component: {fileID: 1033221279}
   m_Layer: 0
-  m_Name: Mng
+  m_Name: Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -173,6 +174,20 @@ MonoBehaviour:
   - {fileID: 6535648080370098251, guid: aff52c403af0eec41849106b89b64d3a, type: 3}
   - {fileID: 589719420828772139, guid: 0e3b67b3744bd2443a3a0e3755888740, type: 3}
   - {fileID: 7572697613092267381, guid: 0e8837c4ceb69f642933b00eadbf37cb, type: 3}
+--- !u!114 &1033221279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1033221275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 004071e85482b454ba5d51fb4d5c22f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName: 
+  playerTr: {fileID: 0}
 --- !u!1 &1291398451
 GameObject:
   m_ObjectHideFlags: 3
@@ -309,9 +324,17 @@ Camera:
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -433,6 +456,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
+    FocusDistance: 10
     m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
@@ -557,6 +581,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1280292217606362443, guid: ccd79c3e38c07b34181041f1da997023, type: 3}
@@ -608,4 +633,7 @@ PrefabInstance:
       value: Floor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccd79c3e38c07b34181041f1da997023, type: 3}

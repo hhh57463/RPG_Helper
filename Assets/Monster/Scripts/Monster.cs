@@ -6,7 +6,7 @@ public class Monster : MonoBehaviour
 {
     [Tooltip("[Monster Type]\n1: In Range Move Monster\n2: Esacape Range, revert point Monster\n3: In Range Follow Monster")]
     [SerializeField] int monsterType;
-    [Tooltip("[Monster Patern]\n0: Comback SpawnPoint\n1: Stand\n2: Move\n3: Follow Player")]
+    [Tooltip("[Monster Patern]\n0: Comback SpawnPoint\n1: Standing\n2: Move Random Direction\n3: Follow Player")]
     [SerializeField] int patern;
     [SerializeField] float speed;
     float moveSpeed;
@@ -16,17 +16,8 @@ public class Monster : MonoBehaviour
 
     float spawnRadius;
 
-    /////////////////////////////////////////////////
-    /// <summary>
-    /// These variables are for accessing the player's position.
-    /// </summary>
-    [SerializeField] Transform playerTr;
-    const string playerTag = "Player";
-    /////////////////////////////////////////////////
-
     void Start()
     {
-        playerTr = GameObject.FindWithTag(playerTag).transform;
         spawnLocalPos = transform.localPosition;
         spawnWorldPos = transform.position;
         speed = 11.0f;
@@ -36,27 +27,29 @@ public class Monster : MonoBehaviour
 
     void Update()
     {
-        switch (monsterType)
+        if (Manager.I.playerTr != null)
         {
-            case 1:
-                MonsterType1();
-                break;
-            case 2:
-                MonsterType2();
-                break;
-            case 3:
-                MonsterType3();
-                break;
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            StopCoroutine("Thinking");
-            transform.localPosition = spawnLocalPos;
-            speed = 11.0f;
-            StartCoroutine("Thinking");
+            switch (monsterType)
+            {
+                case 1:
+                    MonsterType1();
+                    break;
+                case 2:
+                    MonsterType2();
+                    break;
+                case 3:
+                    MonsterType3();
+                    break;
+            }
+            if (Input.GetKeyDown(KeyCode.R))                    // Restore to existing settings
+            {
+                StopCoroutine("Thinking");
+                transform.localPosition = spawnLocalPos;
+                speed = 11.0f;
+                StartCoroutine("Thinking");
+            }
         }
     }
-
     void MonsterType1()
     {
         if (Vector3.Distance(spawnLocalPos, transform.localPosition) >= spawnRadius)
@@ -81,32 +74,26 @@ public class Monster : MonoBehaviour
             StopCoroutine("Thinking");
             patern = 0;
         }
-        if (Vector3.Distance(spawnWorldPos, playerTr.position) <= chaseRadius)
+        if (Vector3.Distance(spawnWorldPos, Manager.I.playerTr.position) <= chaseRadius)
         {
             StopCoroutine("Thinking");
             patern = 3;
         }
 
         PaternAction();
-
-        if (patern == 3)
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-        else
-            transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPos, moveSpeed * Time.deltaTime);
-        if (transform.localPosition == targetPos)
-            MovePos();
+        PatternCheck();
     }
 
     bool isChasing = false;
     void MonsterType3()
     {
-        if (Vector3.Distance(playerTr.position, transform.position) <= chaseRadius)
+        if (Vector3.Distance(Manager.I.playerTr.position, transform.position) <= chaseRadius)
         {
             StopCoroutine("Thinking");
             isChasing = true;
             patern = 3;
         }
-        if (isChasing && Vector3.Distance(playerTr.position, transform.position) >= chaseRadius)
+        if (isChasing && Vector3.Distance(Manager.I.playerTr.position, transform.position) >= chaseRadius)
         {
             if (Vector3.Distance(spawnLocalPos, transform.localPosition) >= spawnRadius)
             {
@@ -115,6 +102,11 @@ public class Monster : MonoBehaviour
             }
         }
         PaternAction();
+        PatternCheck();
+    }
+
+    void PatternCheck()
+    {
         if (patern == 3)
             transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
         else
@@ -123,10 +115,12 @@ public class Monster : MonoBehaviour
             MovePos();
     }
 
+    float thinkCycle = 3.0f;
+
     IEnumerator Thinking()
     {
         SelectPatern();
-        yield return new WaitForSeconds(10.0f);
+        yield return new WaitForSeconds(thinkCycle);
         StartCoroutine("Thinking");
     }
 
@@ -143,24 +137,28 @@ public class Monster : MonoBehaviour
             MovePos();
     }
 
+    /// <summary>
+    /// Settings by pattern
+    /// </summary>
     void PaternAction()
     {
         switch (patern)
         {
-            case 0:
+            case 0:                                                     // Return to spawn point
                 targetPos = spawnLocalPos;
                 moveSpeed = speed;
                 if (Vector3.Distance(spawnLocalPos, transform.localPosition) >= 1.0f)
                     StartCoroutine("Thinking");
                 break;
-            case 1:
+            case 1:                                                     // Standing
                 moveSpeed = 0f;
                 break;
-            case 2:
+            case 2:                                                     // Move Random Direction
                 moveSpeed = speed;
                 break;
-            case 3:
-                targetPos = playerTr.position;
+            case 3:                                                     // Follow Player
+                targetPos = Manager.I.playerTr.position;
+                moveSpeed = speed;
                 break;
         }
     }
