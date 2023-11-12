@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DemoMonster : MonoBehaviour
 {
+    
+    Rigidbody rigid;
     [Tooltip("[Monster Type]\n1: In Range Move Monster\n2: Esacape Range, revert point Monster\n3: In Range Follow Monster")]
     [SerializeField] int monsterType;
     [Tooltip("[Monster Patern]\n0: Comback SpawnPoint\n1: Standing\n2: Move Random Direction\n3: Follow Player")]
@@ -60,7 +62,7 @@ public class DemoMonster : MonoBehaviour
 
         PaternAction();
 
-        transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPos, moveSpeed * Time.deltaTime);
+        rigid.velocity = (transform.position - targetPos).normalized * moveSpeed;
         if (transform.localPosition == targetPos)
             MovePos();
     }
@@ -108,9 +110,9 @@ public class DemoMonster : MonoBehaviour
     void PatternCheck()
     {
         if (patern == 3)
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+            rigid.velocity = -(transform.position - targetPos).normalized * moveSpeed;
         else
-            transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPos, moveSpeed * Time.deltaTime);
+            rigid.velocity = (transform.localPosition - targetPos).normalized * moveSpeed;
         if (transform.localPosition == targetPos)
             MovePos();
     }
