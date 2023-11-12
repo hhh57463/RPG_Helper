@@ -30,6 +30,7 @@ public class LevelMng : MonoBehaviour
     /// Write a suitable player script
     /// </summary>
     public Level_Player playerSc;
+    //public PlayerMng playerSc;
     ////////////////////////////////////////////////////
 
     void Start()
