@@ -10,8 +10,7 @@ public class Level_Btn : MonoBehaviour
     public void LevelUpBtn()
     {
         playerSc.level++;
-        levelMng.LevelUpEvent(playerSc.level);
-        
+        levelMng.LevelUpEvent(playerSc.level);   
     }
 
     public void AddExpBtn_1()
